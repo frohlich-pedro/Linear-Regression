@@ -51,7 +51,7 @@ int main(void) {
     return {b0, b1};
   };
 
-  vector<double> x = {};
+  vector<double> x = {1,2,3,4,5};
   vector<double> y = {0,2,4,6,8};
 
   try {
