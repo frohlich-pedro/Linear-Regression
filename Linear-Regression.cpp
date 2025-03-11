@@ -2,7 +2,23 @@
 #include <vector>
 #include <numeric>
 
+std::pair<double, double> linearRegression(std::vector<double>& x, std::vector<double>& y);
+
 int main(void) {
+  std::vector<double> x = {1,2,3,4,5};
+  std::vector<double> y = {0,2,4,6,8};
+
+  try {
+    auto [b0, b1] = linearRegression(x, y);
+    std::cout << b0 << ", " << b1 << std::endl;
+  } catch (const runtime_error& e) {
+    std::cerr << e.what() << std::endl;
+  }
+  
+  return 0;
+}
+
+std::pair<double, double> linearRegression(std::vector<double>& x, std::vector<double>& y) {
   auto mean = [&](std::vector<double>& data) -> double {
     if (data.empty()) {
       throw std::runtime_error("ERROR: empty vector");
@@ -17,7 +33,6 @@ int main(void) {
     }
 
     double sum = 0;
-
     for (auto& i : data) {
       sum += (i - mean(data)) * (i - mean(data));
     }
@@ -31,7 +46,6 @@ int main(void) {
     }
 
     double sum = 0;
-
     for (int i = 0; i < x.size(); i++) {
       sum += (x[i] - mean(x)) * (y[i] - mean(y));
     }
@@ -39,25 +53,11 @@ int main(void) {
     return sum / x.size();
   };
 
-  auto linear_regression = [&](std::vector<double>& x, std::vector<double>& y) -> std::pair<double, double> {
-    if (x.empty() || y.empty()) {
-      throw std::runtime_error("ERROR: empty vector");
-    }
-    double b1 = covariance(x, y) / variance(x);
-    double b0 = mean(y) - b1 * mean(x);
-
-    return {b0, b1};
-  };
-
-  std::vector<double> x = {1,2,3,4,5};
-  std::vector<double> y = {0,2,4,6,8};
-
-  try {
-    auto [b0, b1] = linear_regression(x, y);
-    std::cout << b0 << ", " << b1 << std::endl;
-  } catch(const runtime_error& e) {
-    std::cerr << e.what() << std::endl;
+  if (x.empty() || y.empty()) {
+    throw std::runtime_error("ERROR: empty vector");
   }
-  
-  return 0;
+  double b1 = covariance(x, y) / variance(x);
+  double b0 = mean(y) - b1 * mean(x);
+
+  return {b0, b1};
 }
