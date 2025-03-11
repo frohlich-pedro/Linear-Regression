@@ -57,7 +57,7 @@ int main(void) {
   try {
     auto [b0, b1] = linear_regression(x, y);
     cout << b0 << ", " << b1 << endl;
-  } catch(runtime_error& error) {
+  } catch(const runtime_error& error) {
     cerr << error.what() << endl;
   }
   
