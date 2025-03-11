@@ -56,6 +56,7 @@ std::pair<double, double> linearRegression(std::vector<double>& x, std::vector<d
   if (x.empty() || y.empty()) {
     throw std::runtime_error("ERROR: empty vector");
   }
+  
   double b1 = covariance(x, y) / variance(x);
   double b0 = mean(y) - b1 * mean(x);
 
