@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <numeric>
+#include <stdexcept>
 
 std::pair<double, double> linearRegression(std::vector<double>& x, std::vector<double>& y);
 
